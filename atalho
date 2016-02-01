@@ -4,6 +4,7 @@
 #Date 2015
 #For Futures upgrades, news options will be added with time
 
+
 echo Digite help para os comandos:
 read comandos
 
@@ -17,7 +18,8 @@ echo 6 = Reativar wlan0
 echo 7 = Ativar rede wlan0mon em modo monitor
 echo 8 = arpspoof attack
 echo 9 = DDoS Attack
-echo 10 = Créditos
+echo 10 = Update
+echo 11 = Créditos
 fi
 
 if [ $comandos = "1" ]; then
@@ -45,7 +47,7 @@ sqlmap -u $alvo -D $db -T $tl -C $cl --dump
 echo DUMPED
 fi
 
-if [ $comandos = "10" ]; then
+if [ $comandos = "11" ]; then
 echo Coded By M0NST4R
 echo Greatz For  B43L-STEALTH-HAXSTROKE-SECDET-PLASTYNE-DESCONN3CT
 echo             B4C0N-F0UREYER-SUBKLEZ-ISABEL-RAGE e o resto da quebrada
@@ -162,6 +164,14 @@ sqlmap -u $alvo -D $db -T $tl -C $cl --dump
 
 echo DUMPED
 fi
+fi
+
+if [ $comandos = "10" ]; then
+wget -O atalho https://raw.githubusercontent.com/M0NST4R0101/atalho/master/atalho 
+chmod a+x atalho
+cp -b -p atalho /usr/bin/atalho 
+rm -rf atalho
+echo "Upgrade Complete!"
 fi
 
 if [ $comandos = "6" ]; then
